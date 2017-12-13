@@ -44,7 +44,7 @@ export class KaraokempService {
 
   find(query) {
     if (query === null || query === '') {
-      return;
+      return Observable.of(null);
     }
     if (query === this.currentQuery) {
       return Observable.of(this.currentSongList);
