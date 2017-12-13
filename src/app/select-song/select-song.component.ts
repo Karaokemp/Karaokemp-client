@@ -16,11 +16,9 @@ import { KaraokempService } from '../karaokemp.service';
 
     <app-song-submitted *ngIf="submittedSongDetails" [songDetails]="submittedSongDetails"></app-song-submitted>
 
-    <div *ngIf="submitError" class="error">
-      <div class="mat-error">There was an error. Please try submitting the song again.</div>
-      <div class="show-error-details" (click)="showError = true" *ngIf="!showError">Show error details</div>
-      <div *ngIf="showError">{{ submitError | json }}</div>
-    </div>
+    <app-error *ngIf="submitError"
+               [error]="submitError"
+               errorMessage="There was an error. Please try submitting the song again."></app-error>
   `,
   styleUrls: ['./select-song.component.scss']
 })
@@ -30,7 +28,6 @@ export class SelectSongComponent implements OnInit {
   submittedSongDetails;
   submitError;
   spinner;
-  showError;
 
   constructor(
     private karaokempService: KaraokempService,
@@ -45,7 +42,6 @@ export class SelectSongComponent implements OnInit {
   }
 
   onSubmit(songDetails) {
-    this.showError = false;
     this.submitError = null;
     this.karaokempService.setPerformerDetails(songDetails.name, songDetails.email);
     this.spinner = true;

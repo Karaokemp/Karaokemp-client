@@ -14,11 +14,15 @@ interface SubmitSongReponse {
 }
 
 // For mock purposes
+let hasResults = true;
 function getSongs(query) {
   const songs = {};
-  for (let i = 0; i < 100; i++) {
-    songs[i] = query + i;
+  if (hasResults) {
+    for (let i = 0; i < 100; i++) {
+      songs[i] = query + i;
+    }
   }
+  hasResults = !hasResults;
   return Observable.of(songs);
 }
 
@@ -59,6 +63,7 @@ export class KaraokempService {
       .map(result => {
         return Object.keys(result).map(id => ({ id, title: result[id] }));
       })
+      .map(songlist => songlist.length === 0 ? null : songlist)
       .do(songlist => this.currentSongList = songlist);
   }
 

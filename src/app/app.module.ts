@@ -21,6 +21,7 @@ import { SubmitSongFormComponent } from './submit-song-form/submit-song-form.com
 import { SongSubmittedComponent } from './song-submitted/song-submitted.component';
 import { EmailValidatorDirective } from './email-validator/email-validator.directive';
 import { PersistencyService } from './persistency.service';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PersistencyService } from './persistency.service';
     SearchSongComponent,
     SubmitSongFormComponent,
     SongSubmittedComponent,
-    EmailValidatorDirective
+    EmailValidatorDirective,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
