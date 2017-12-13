@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
                 mat-icon-button
                 aria-label="Clear"
                 (click)="searchInput.value=''">
-          <mat-icon>close</mat-icon>
+          clear
         </button>
 
       </mat-form-field>

@@ -42,21 +42,17 @@ export class KaraokempService {
     }
 
     this.currentQuery = query;
-    // TODO: uncomment and fix
-    /*return this.http
+
+    return this.http
       .get(environment.backend.find,
         {
           params: new HttpParams().set('query', query),
           headers: new HttpHeaders()
             .set('Accept', 'application/json')
-            .set('Access-Control-Allow-Origin', 'http://localhost:8080')
-        })*/
-    // TODO: remove the next line
-    return getSongs(query)
-      .map(result => {
-        return Object.keys(result).map(id => ({ id, title: result[id] }));
-      })
-      .do(songlist => this.currentSongList = songlist);
+        }) .map(result => {
+              return Object.keys(result).map(id => ({ id, title: result[id] }));
+            })
+            .do(songlist => this.currentSongList = songlist);
   }
 
   setSelectedSong(song) {
@@ -80,19 +76,19 @@ export class KaraokempService {
   }
 
   submit(details) {
-    // TODO: uncomment and fix
-    /*return this.http
+    
+    return this.http
       .post<SubmitSongReponse>(environment.backend.requestSong,
         {
           email: details.email,
           performerName: details.name,
           songIndex: this.currentSong.id
-        });*/
+        });
     // TODO: remove the following lines
-    return Observable.of({
-      numberInLine: 10,
-      performerNumber: 7
-    });
+    // return Observable.of({
+    //   numberInLine: 10,
+    //   performerNumber: 7
+    // });
   }
 
 }
