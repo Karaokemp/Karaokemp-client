@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { SelectSongComponent } from './select-song/select-song.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatProgressSpinnerModule,
+  MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatProgressSpinnerModule,
   MatToolbarModule
 } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { SubmitSongFormComponent } from './submit-song-form/submit-song-form.component';
 import { SongSubmittedComponent } from './song-submitted/song-submitted.component';
 import { EmailValidatorDirective } from './email-validator/email-validator.directive';
+import { PersistencyService } from './persistency.service';
 
 
 @NgModule({
@@ -43,11 +45,14 @@ import { EmailValidatorDirective } from './email-validator/email-validator.direc
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatCheckboxModule
   ],
   providers: [
     KaraokempService,
-    SelectSongGuard
+    SelectSongGuard,
+    PersistencyService
   ],
   bootstrap: [AppComponent]
 })

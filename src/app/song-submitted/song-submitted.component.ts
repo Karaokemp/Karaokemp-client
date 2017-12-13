@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PersistencyService } from '../persistency.service';
 
 @Component({
   selector: 'app-song-submitted',
@@ -11,7 +12,7 @@ import { Component, Input, OnInit } from '@angular/core';
       <button mat-raised-button
               color="primary"
               routerLink="/search"
-              queryParamsHandling="preserve">
+              [queryParamsHandling]="(persistency$ | async)?.search ? 'preserve' : ''">
         Back to song search
       </button>
     </div>
@@ -20,11 +21,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SongSubmittedComponent implements OnInit {
   @Input() songDetails;
+  persistency$;
 
-  constructor() {
+  constructor(private persistencyService: PersistencyService) {
   }
 
   ngOnInit() {
+    this.persistency$ = this.persistencyService.persistency$;
   }
 
 }

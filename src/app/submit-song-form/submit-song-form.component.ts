@@ -7,17 +7,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
       <mat-form-field class="input-full-width">
         <input #nameInput
                name="name"
-               [(ngModel)]="presenter.name"
+               [(ngModel)]="performer.name"
                matInput
                required
-               placeholder="Presenter name">
+               placeholder="performer name">
         <button mat-button
                 *ngIf="nameInput.value"
                 matSuffix
                 mat-icon-button
                 aria-label="Clear"
                 type="button"
-                (click)="presenter.name=''">
+                (click)="performer.name=''">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
@@ -27,7 +27,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
                name="email"
                type="email"
                appEmailValidator
-               [(ngModel)]="presenter.email"
+               [(ngModel)]="performer.email"
                matInput
                placeholder="If you'd like to be recorded - enter your email">
         <button mat-button
@@ -36,21 +36,31 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
                 mat-icon-button
                 aria-label="Clear"
                 type="button"
-                (click)="presenter.email=''">
+                (click)="performer.email=''">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
 
       <div>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">Submit</button>
-        <button mat-raised-button color="accent" routerLink="/search" queryParamsHandling="preserve">Back to List</button>
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="!f.valid">
+          Submit
+        </button>
+        <button mat-raised-button
+                color="accent"
+                routerLink="/search"
+                queryParamsHandling="preserve">
+          Back to List
+        </button>
       </div>
     </form>
   `,
   styleUrls: ['./submit-song-form.component.scss']
 })
 export class SubmitSongFormComponent implements OnInit {
-  @Input() presenter;
+  @Input() performer;
   @Output() submitSong = new EventEmitter();
 
   constructor() {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../environments/environment';
+import { PersistencyService } from './persistency.service';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
@@ -12,7 +13,7 @@ interface SubmitSongReponse {
   performerNumber: number;
 }
 
-// TODO - remove: mock song list
+// For mock purposes
 function getSongs(query) {
   const songs = {};
   for (let i = 0; i < 100; i++) {
@@ -26,11 +27,15 @@ export class KaraokempService {
   currentQuery;
   currentSongList;
   currentSong;
+  persistPerformer;
 
-  presenterName;
-  presenterEmail;
+  performer = {};
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private persistencyService: PersistencyService) {
+    this.persistencyService.persistency$.subscribe(persist => {
+      this.persistPerformer = persist.performer;
+    });
+    this.performer = this.persistencyService.getPerformer();
   }
 
   find(query) {
@@ -49,10 +54,12 @@ export class KaraokempService {
           params: new HttpParams().set('query', query),
           headers: new HttpHeaders()
             .set('Accept', 'application/json')
-        }) .map(result => {
-              return Object.keys(result).map(id => ({ id, title: result[id] }));
-            })
-            .do(songlist => this.currentSongList = songlist);
+        })
+      // return getSongs(query)
+      .map(result => {
+        return Object.keys(result).map(id => ({ id, title: result[id] }));
+      })
+      .do(songlist => this.currentSongList = songlist);
   }
 
   setSelectedSong(song) {
@@ -63,20 +70,21 @@ export class KaraokempService {
     return this.currentSong;
   }
 
-  setPresenterDetails(name, email) {
-    this.presenterName = name;
-    this.presenterEmail = email;
+  setPerformerDetails(name, email) {
+    this.performer = {
+      name,
+      email
+    };
+    if (this.persistPerformer) {
+      this.persistencyService.savePerformer(this.performer);
+    }
   }
 
-  getPresenterDetails() {
-    return {
-      name: this.presenterName,
-      email: this.presenterEmail
-    };
+  getPerformerDetails() {
+    return this.persistPerformer ? { ...this.performer } : {};
   }
 
   submit(details) {
-    
     return this.http
       .post<SubmitSongReponse>(environment.backend.requestSong,
         {
@@ -84,7 +92,7 @@ export class KaraokempService {
           performerName: details.name,
           songIndex: this.currentSong.id
         });
-    // TODO: remove the following lines
+
     // return Observable.of({
     //   numberInLine: 10,
     //   performerNumber: 7

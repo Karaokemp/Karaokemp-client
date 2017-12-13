@@ -10,7 +10,7 @@ import { KaraokempService } from '../karaokemp.service';
     <mat-spinner *ngIf="spinner" class="spinner"></mat-spinner>
 
     <app-submit-song-form *ngIf="!submittedSongDetails"
-                          [presenter]="presenter"
+                          [performer]="performer"
                           (submitSong)="onSubmit($event)">
     </app-submit-song-form>
 
@@ -26,7 +26,7 @@ import { KaraokempService } from '../karaokemp.service';
 })
 export class SelectSongComponent implements OnInit {
   song;
-  presenter;
+  performer;
   submittedSongDetails;
   submitError;
   spinner;
@@ -41,13 +41,13 @@ export class SelectSongComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.song = this.karaokempService.getSong(params.id);
     });
-    this.presenter = this.karaokempService.getPresenterDetails();
+    this.performer = this.karaokempService.getPerformerDetails();
   }
 
   onSubmit(songDetails) {
     this.showError = false;
     this.submitError = null;
-    this.karaokempService.setPresenterDetails(songDetails.name, songDetails.email);
+    this.karaokempService.setPerformerDetails(songDetails.name, songDetails.email);
     this.spinner = true;
     this.karaokempService.submit(songDetails)
       .subscribe(result => {
