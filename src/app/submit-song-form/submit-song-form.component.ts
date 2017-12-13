@@ -16,6 +16,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
                 matSuffix
                 mat-icon-button
                 aria-label="Clear"
+                type="button"
                 (click)="presenter.name=''">
           <mat-icon>close</mat-icon>
         </button>
@@ -24,6 +25,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
       <mat-form-field class="input-full-width">
         <input #emailInput
                name="email"
+               type="email"
+               appEmailValidator
                [(ngModel)]="presenter.email"
                matInput
                placeholder="If you'd like to be recorded - enter your email">
@@ -32,13 +35,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
                 matSuffix
                 mat-icon-button
                 aria-label="Clear"
+                type="button"
                 (click)="presenter.email=''">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
 
       <div>
-        <button mat-raised-button color="primary" [disabled]="!f.valid">Submit</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">Submit</button>
         <button mat-raised-button color="accent" routerLink="/search" queryParamsHandling="preserve">Back to List</button>
       </div>
     </form>

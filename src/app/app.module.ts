@@ -18,6 +18,7 @@ import { SelectSongGuard } from './select-song/select-song.guard';
 import { FormsModule } from '@angular/forms';
 import { SubmitSongFormComponent } from './submit-song-form/submit-song-form.component';
 import { SongSubmittedComponent } from './song-submitted/song-submitted.component';
+import { EmailValidatorDirective } from './email-validator/email-validator.directive';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SongSubmittedComponent } from './song-submitted/song-submitted.componen
     SelectSongComponent,
     SearchSongComponent,
     SubmitSongFormComponent,
-    SongSubmittedComponent
+    SongSubmittedComponent,
+    EmailValidatorDirective
   ],
   imports: [
     BrowserModule,
