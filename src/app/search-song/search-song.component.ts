@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { KaraokempService } from '../karaokemp.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'app-search-song',
@@ -29,19 +33,32 @@ import { ActivatedRoute, Router } from '@angular/router';
       </button>
     </div>
 
-    <mat-nav-list class="song-list">
-      <a (click)="selectSong(song)"
-         mat-list-item
-         class="song-item"
-         *ngFor="let song of songlist$ | async">
-        {{ song.title }}
-      </a>
-    </mat-nav-list>  `,
+    <div *ngIf="!searchError" class="song-list">
+      <mat-nav-list *ngIf="(songlist$ | async) as songlist; else noResults">
+        <a (click)="selectSong(song)"
+           mat-list-item
+           class="song-item"
+           *ngFor="let song of songlist">
+          {{ song.title }}
+        </a>
+      </mat-nav-list>
+
+      <ng-template #noResults>
+        <h2 *ngIf="!pending" class="no-results">There are no results for your search query.</h2>
+      </ng-template>
+    </div>
+
+    <app-error *ngIf="searchError"
+               [error]="searchError"
+               errorMessage="There was an error. Please try searching again."></app-error>
+  `,
   styleUrls: ['./search-song.component.scss']
 })
 export class SearchSongComponent implements OnInit {
   songlist$;
   query;
+  searchError;
+  pending = true;
 
   constructor(
     private karaokempService: KaraokempService,
@@ -52,7 +69,14 @@ export class SearchSongComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(param => {
       this.query = param['query'] || '';
-      this.songlist$ = this.karaokempService.find(this.query);
+      this.pending = true;
+      this.songlist$ = this.karaokempService.find(this.query)
+        .do(() => this.pending = false)
+        .catch(err => {
+          this.pending = false;
+          this.searchError = err;
+          return Observable.of(null);
+        });
     });
   }
 
@@ -60,6 +84,7 @@ export class SearchSongComponent implements OnInit {
     if (query === null || query === '') {
       return;
     }
+    this.searchError = null;
     this.router.navigate(['./'], {
       relativeTo: this.activatedRoute,
       queryParams: {
