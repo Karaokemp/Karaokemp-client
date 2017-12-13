@@ -4,5 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backend: {
+    find: `http://localhost:8080/KaraConnect/find`,
+    requestSong: `http://localhost:8080/KaraConnect/requestSong`
+  }
 };

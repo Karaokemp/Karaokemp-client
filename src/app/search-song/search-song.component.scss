@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.song-search {
+  display: flex;
+}
+
+.input-full-width {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.song-list {
+  overflow: auto;
+  height: 100%;
+  margin: 0 -16px;
+
+  .song-item {
+    &:hover, &:active {
+      background: salmon;
+    }
+  }
+}

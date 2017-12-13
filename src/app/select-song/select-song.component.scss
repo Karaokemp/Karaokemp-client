@@ -1,0 +1,13 @@
+.spinner {
+  position: absolute;
+  left: calc(50% - 50px);
+}
+
+.show-error-details {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.error {
+  margin-top: 20px;
+}
