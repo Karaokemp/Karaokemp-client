@@ -18,7 +18,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
                 aria-label="Clear"
                 type="button"
                 (click)="performer.name=''">
-          <mat-icon>close</mat-icon>
+          <span class="close-x">x</span>
         </button>
       </mat-form-field>
 
@@ -37,7 +37,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
                 aria-label="Clear"
                 type="button"
                 (click)="performer.email=''">
-          <mat-icon>close</mat-icon>
+          <span class="close-x">x</span>
         </button>
       </mat-form-field>
 
