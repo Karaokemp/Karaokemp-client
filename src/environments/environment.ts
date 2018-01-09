@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   backend: {
-    find: `http://localhost:4567/KaraConnect/find`,
-    requestSong: `http://localhost:4567/KaraConnect/requestSong`
+    find: `http://localhost:4567/find`,
+    requestSong: `http://localhost:4567/requestSong`
   }
 };
