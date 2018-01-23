@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   backend: {
-    find: `/find`,
-    requestSong: `/requestSong`
+    find: `/api/find`,
+    requestSong: `/api/requestSong`
   }
 };
